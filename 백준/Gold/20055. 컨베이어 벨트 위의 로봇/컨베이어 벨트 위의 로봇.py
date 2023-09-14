@@ -1,14 +1,14 @@
 from collections import deque
 
 N, K = map(int, input().split())
-lst = deque(list(map(int, input().split())))
+lst = deque(map(int, input().split()))
 robot = deque([0] * N)
 cnt = 1
 
 while True:
     # 벨트 돌리기
-    lst.appendleft(lst.pop())
-    robot.appendleft(robot.pop())
+    lst.rotate(1)
+    robot.rotate(1)
     robot[N-1] = 0
 
     # 로봇 움직이기
