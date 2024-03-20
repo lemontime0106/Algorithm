@@ -1,8 +1,7 @@
-n, m = map(int, input().split())
-graph = [list(map(int, input())) for _ in range(n)]
+N, M = map(int, input().split())
+MAP = [list(map(int, input())) for _ in range(N)]
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+direct = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
 def bfs(x, y):
     q = []
@@ -10,18 +9,12 @@ def bfs(x, y):
     while q:
         x, y = q.pop(0)
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if nx >= n or ny >= m or nx < 0 or ny < 0:
-                continue
-
-            if graph[nx][ny] == 0:
-                continue
-
-            if graph[nx][ny] == 1:
-                graph[nx][ny] = graph[x][y] + 1
+            nx = x + direct[i][0]
+            ny = y + direct[i][1]
+            if 0 <= nx < N and 0 <= ny < M and MAP[nx][ny] == 1:
+                MAP[nx][ny] = MAP[x][y] + 1
                 q.append((nx, ny))
 
-    return graph[n-1][m-1]
+    return MAP[N-1][M-1]
 
 print(bfs(0, 0))
