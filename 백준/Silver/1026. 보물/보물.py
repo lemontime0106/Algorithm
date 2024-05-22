@@ -1,17 +1,13 @@
-n = int(input())
-a_lst = list(map(int, input().split()))
-b_lst = list(map(int, input().split()))
+N = int(input())
 
-a_lst.sort()
-b_lst.sort(reverse=True)
+A = list(map(int, input().split()))
+B = list(map(int, input().split()))
 
-sum_lst = []
-sum_n = 0
+A.sort()
+B.sort(reverse=True)
 
-for i in range(n):
-    sum_n += a_lst[i] * b_lst[i]
-sum_lst.append(sum_n)
+answer = 0
+for i in range(N):
+    answer += A[i] * B[i]
 
-ans = max(sum_lst)
-
-print(ans)
+print(answer)
