@@ -1,29 +1,27 @@
-import sys
+N, M = map(int, input().split())
 
-direct = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+MAP = [list(input()) for _ in range(N)]
 
+direct = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-def backtrack(x, y, cnt):
+root = set()
+result = 0
+
+def solution(x, y, cnt):
     global result
     if result < cnt:
         result = cnt
     if result == 26:
-        print(26)
+        print("26")
         exit(0)
-    for i in range(4):
-        dx = x + direct[i][0]
-        dy = y + direct[i][1]
-        if 0 <= dx < R and 0 <= dy < C and MAP[dx][dy] not in char:
-            char.add(MAP[dx][dy])
-            backtrack(dx, dy, cnt + 1)
-            char.remove(MAP[dx][dy])
 
+    for d in direct:
+        nx, ny = x + d[0], y + d[1]
+        if 0 <= nx < N and 0 <= ny < M and MAP[nx][ny] not in root:
+            root.add(MAP[nx][ny])
+            solution(nx, ny, cnt + 1)
+            root.remove(MAP[nx][ny])
 
-R, C = map(int, sys.stdin.readline().strip().split())
-
-MAP = [list(sys.stdin.readline().strip()) for _ in range(R)]
-char = set()
-result = 0
-char.add(MAP[0][0])
-backtrack(0, 0, 1)
+root.add(MAP[0][0])
+solution(0, 0, 1)
 print(result)
