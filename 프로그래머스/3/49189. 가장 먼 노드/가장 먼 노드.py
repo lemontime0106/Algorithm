@@ -1,0 +1,30 @@
+from collections import deque
+
+def solution(n, edge):
+    answer = 0
+    
+    graph = [[] for _ in range(n + 1)]
+    visited = [-1] * (n+1)
+    
+    for e in edge:
+        a, b = e
+        graph[a].append(b)
+        graph[b].append(a)
+    
+    q = deque([1])
+    visited[1] = 0
+    
+    while q:
+        v = q.popleft()
+        
+        for i in graph[v]:
+            if visited[i] == -1:
+                q.append(i)
+                visited[i] = visited[v] + 1
+    
+    for i in visited:
+        if i == max(visited):
+            answer += 1
+    
+    
+    return answer
