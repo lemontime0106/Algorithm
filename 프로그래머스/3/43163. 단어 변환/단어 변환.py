@@ -21,8 +21,7 @@ def bfs(b, t, w):
 def solution(begin, target, words):
     if target not in words:
         return 0
-    else:
-        return bfs(begin, target, words)
+    return bfs(begin, target, words)
 
         
 
