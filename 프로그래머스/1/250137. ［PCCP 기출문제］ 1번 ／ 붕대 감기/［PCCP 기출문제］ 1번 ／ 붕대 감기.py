@@ -8,6 +8,7 @@ def solution(bandage, health, attacks):
     
     charging = 0
     answer = 0
+    
     for i in range(1, max_time + 1):
         if i in attack_dict:
             cur_health -= attack_dict[i]
@@ -22,8 +23,8 @@ def solution(bandage, health, attacks):
             elif charging == t:
                 cur_health = min(health, cur_health + x + y)
                 charging = 0
-    
+                
     if answer != -1:
         answer = cur_health
-
+        
     return answer
