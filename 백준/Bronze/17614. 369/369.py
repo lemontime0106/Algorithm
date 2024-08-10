@@ -9,6 +9,6 @@ for i in range(1, N+1):
         else:
             game[int(j)] += 1
 
-answer = game[3] + game[6] + game[9]
+answer = game.get(3, 0) + game.get(6, 0) + game.get(9, 0)
 
 print(answer)
