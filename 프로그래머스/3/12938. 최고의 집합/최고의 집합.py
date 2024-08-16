@@ -16,6 +16,7 @@ def solution(n, s):
             remain -= 1
             if remain == 0:
                 break
+                
     answer.sort()
     
     return answer
