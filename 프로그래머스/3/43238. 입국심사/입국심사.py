@@ -1,21 +1,22 @@
 def solution(n, times):
-    answer = 0
+    answer = []
     
-    left, right = 0, max(times) * n
+    left, right = 1, max(times) * n
     
     while left <= right:
         mid = (left + right) // 2
-        people = 0
+        cnt = 0
         
         for time in times:
-            people += mid // time
-            if people == n:
+            cnt += mid // time
+            
+            if cnt == n:
                 break
-                
-        if people >= n:
-            answer = mid
+        
+        if cnt >= n:
+            answer.append(mid)
             right = mid - 1
         else:
             left = mid + 1
-    
-    return answer
+        
+    return min(answer)
