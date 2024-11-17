@@ -5,13 +5,15 @@ answer = set()
 
 def dfs(stack):
     if len(stack) == M:
-        answer.add(tuple(stack))
+        answer.add(tuple(stack[:]))
         return
 
     for i in range(N):
         if not visited[i]:
             visited[i] = True
-            dfs(stack + [lst[i]])
+            stack.append(lst[i])
+            dfs(stack)
+            stack.pop()
             visited[i] = False
 
 dfs([])
