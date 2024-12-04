@@ -1,10 +1,8 @@
 function solution(n) {
-    var answer = [];
+    var answer = Array.from(Array(n), () => Array(n).fill(0))
     
     for (let i = 0; i < n; i++) {
-        let array = new Array(n).fill(0)
-        array[i] = 1
-        answer.push(array)
+        answer[i][i] = 1
     }
     
     return answer;
