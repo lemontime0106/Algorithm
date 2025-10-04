@@ -1,15 +1,19 @@
-def solution(numbers, target):
-    answer = [0]  
-
-    def dfs(cur, idx):
-        if len(numbers) == idx:
-            if target == cur:
-                answer[0] += 1  
-            return
-        
-        dfs(cur + numbers[idx], idx + 1)
-        dfs(cur - numbers[idx], idx + 1)
-
-    dfs(0, 0)
+def dfs(numbers, target, idx, values):
+    global cnt
     
-    return answer[0]
+    if idx == len(numbers) and values == target:
+        cnt += 1
+        return
+    
+    if idx == len(numbers):
+        return
+    
+    dfs(numbers, target, idx+1, values + numbers[idx])
+    dfs(numbers, target, idx+1, values - numbers[idx])
+
+def solution(numbers, target):
+    global cnt
+    cnt = 0
+    
+    dfs(numbers, target, 0, 0)
+    return cnt
