@@ -1,25 +1,32 @@
 N = int(input())
 M = int(input())
 
-graph = [[] for _ in range(N+1)]
-visited = [False] * (N+1)
+MAP = [[] for _ in range(N)]
 
-for i in range(M):
+for _ in range(M):
     a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
 
-def dfs(start, visited):
-    visited[start] = True
-    for i in graph[start]:
-        if not visited[i]:
-            dfs(i, visited)
+    a -= 1
+    b -= 1
 
-dfs(1, visited)
+    MAP[a].append(b)
+    MAP[b].append(a)
 
-ans = 0
+visited = [False] * N
+
+def dfs(cur):
+    visited[cur] = True
+
+    for nxt in MAP[cur]:
+        if not visited[nxt]:
+            dfs(nxt)
+
+dfs(0)
+
+answer = 0
+
 for i in visited:
     if i:
-        ans += 1
+        answer += 1
 
-print(ans - 1)
+print(answer-1)
