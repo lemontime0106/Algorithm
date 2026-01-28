@@ -2,28 +2,30 @@ import sys
 sys.setrecursionlimit(150000)
 
 N, M, R = map(int, input().split())
-graph = [[] for _ in range(N+1)]
+
+MAP = [[] for _ in range(N + 1)]
 
 for _ in range(M):
     a, b = map(int, input().split())
-    graph[a].append(b)
-    graph[b].append(a)
+    MAP[a].append(b)
+    MAP[b].append(a)
 
-visited = [0] * (N+1)
+for i in range(1, N + 1):
+    MAP[i].sort()
+
+visited = [0] * (N + 1)
 cnt = 1
 
-def dfs(start):
+def dfs(cur):
     global cnt
+    visited[cur] = cnt
+    cnt += 1
 
-    visited[start] = cnt
-    graph[start].sort()
-
-    for i in graph[start]:
-        if not visited[i]:
-            cnt += 1
-            dfs(i)
+    for nxt in MAP[cur]:
+        if visited[nxt] == 0:
+            dfs(nxt)
 
 dfs(R)
 
-for i in range(1, N+1):
+for i in range(1, N + 1):
     print(visited[i])
