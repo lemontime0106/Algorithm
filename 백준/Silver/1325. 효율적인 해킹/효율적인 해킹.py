@@ -1,42 +1,37 @@
-from collections import deque
-
 N, M = map(int, input().split())
 
-# 그래프 초기화
-graph = [[] for _ in range(N + 1)]
+MAP = [[] for _ in range(N)]
 
-# 입력 받기
 for _ in range(M):
     a, b = map(int, input().split())
-    graph[b].append(a)
+    a -= 1
+    b -= 1
+    MAP[b].append(a)
 
-def bfs(start):
-    visited = [False] * (N + 1)
-    queue = deque([start])
+def dfs(start):
+    visited = [False] * N
+    stack = [start]
     visited[start] = True
-    count = 0
+    cnt = 1
 
-    while queue:
-        node = queue.popleft()
-        for neighbor in graph[node]:
-            if not visited[neighbor]:
-                visited[neighbor] = True
-                queue.append(neighbor)
-                count += 1
+    while stack:
+        cur = stack.pop()
+        for nxt in MAP[cur]:
+            if not visited[nxt]:
+                visited[nxt] = True
+                cnt += 1
+                stack.append(nxt)
+    return cnt
 
-    return count
+max_value = 0
+result = []
 
-# 각 노드에 대해 BFS 수행하여 해킹 가능한 노드 수 계산
-hacking_counts = []
-max_hacks = 0
+for i in range(N):
+    value = dfs(i)
+    if value > max_value:
+        max_value = value
+        result = [i + 1]
+    elif value == max_value:
+        result.append(i + 1)
 
-for i in range(1, N + 1):
-    hacks = bfs(i)
-    hacking_counts.append((i, hacks))
-    if hacks > max_hacks:
-        max_hacks = hacks
-
-# 해킹 가능한 노드 수가 가장 많은 노드를 출력
-for node, count in hacking_counts:
-    if count == max_hacks:
-        print(node, end=' ')
+print(*result)
