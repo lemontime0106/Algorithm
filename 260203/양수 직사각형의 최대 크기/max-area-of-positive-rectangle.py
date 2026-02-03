@@ -2,7 +2,7 @@ N, M = map(int, input().split())
 MAP = [list(map(int, input().split())) for _ in range(N)]
 
 # Please write your code here.
-answer = 0
+answer = -1
 
 for x1 in range(N):
     for y1 in range(M):
