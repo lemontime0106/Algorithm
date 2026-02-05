@@ -14,8 +14,8 @@ remove_range(lst, s1, e1)
 s2, e2 = map(int, input().split())
 remove_range(lst, s2, e2)
 
+print(len(lst))
+
 if lst:
     for x in reversed(lst):
         print(x)
-else:
-    print(0)
