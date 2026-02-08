@@ -24,6 +24,5 @@ while stack:
             if not visited[nx][ny] and MAP[nx][ny] == 1:
                 visited[nx][ny] = True
                 stack.append((nx, ny))
-                visited[nx][ny] = False
 
 print(answer)
