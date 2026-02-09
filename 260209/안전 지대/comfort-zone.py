@@ -20,7 +20,7 @@ def dfs(x, y, target):
                 visited[nx][ny] = True
                 dfs(nx, ny, target)
 
-best_k = 0
+best_k = 1
 best_cnt = 0
 
 for k in range(1, maxK+1):
