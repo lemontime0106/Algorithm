@@ -42,6 +42,7 @@ def dfs(idx, cnt):
         for x, y in selected:
             visited_all |= bfs(x, y)
         answer = max(answer, len(visited_all))
+        return
     
     if idx == len(city):
         return
