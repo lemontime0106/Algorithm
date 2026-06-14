@@ -1,14 +1,15 @@
 def solution(s):
     answer = []
     
-    word = list(s)
-    position = {}
-    for i in range(len(word)):
-        if word[i] not in position:
-            position[word[i]] = i
+    temp = dict()
+    
+    for i in range(len(s)):
+        if s[i] not in temp:
+            temp[s[i]] = i
             answer.append(-1)
+        
         else:
-            answer.append((i - position[word[i]]))
-            position[word[i]] = i
+            answer.append(i - temp[s[i]])
+            temp[s[i]] = i
         
     return answer
