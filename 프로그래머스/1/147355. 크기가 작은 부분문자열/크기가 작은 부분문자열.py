@@ -3,13 +3,15 @@ def solution(t, p):
     
     T = len(t)
     P = len(p)
+    num_p = int(p)
     
     for i in range(T-P+1):
         num = ""
-        for j in range(P):
-            num += t[i+j]
         
-        if (int(p) >= int(num)):
-            answer += 1
+        for j in range(i, i+P):
+            num += t[j]
             
+        if int(num) <= num_p:
+            answer += 1
+    
     return answer
