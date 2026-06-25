@@ -1,21 +1,29 @@
 def solution(tickets):
-    answer = []
+    graph = dict()
     
-    visited = [False] * len(tickets)
-    
+    for s, e in tickets:
+        if s not in graph:
+            graph[s] = [e]
+        else:
+            graph[s].append(e)
+            
+    for i in graph:
+        graph[i].sort()
+        
     def dfs(airport, path):
         if len(path) == len(tickets) + 1:
-            answer.append(path)
-            return
+            return path
         
-        for idx, ticket in enumerate(tickets):
-            if airport == ticket[0] and not visited[idx]:
-                visited[idx] = True
-                dfs(ticket[1], path + [ticket[1]])
-                visited[idx] = False
-                
-    dfs("ICN", ["ICN"])
+        if airport not in graph:
+            return None
+        
+        for i in range(len(graph[airport])):
+            next_airport = graph[airport].pop(i)
+            
+            result = dfs(next_airport, path+[next_airport])
+            if result:
+                return result
+            
+            graph[airport].insert(i, next_airport)
     
-    answer.sort()
-    
-    return answer[0]
+    return dfs("ICN", ["ICN"])
