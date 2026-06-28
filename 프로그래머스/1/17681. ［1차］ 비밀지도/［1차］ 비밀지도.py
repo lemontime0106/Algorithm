@@ -1,18 +1,33 @@
+def to_binary(num, n):
+    if num == 0:
+        return "0" * n
+    
+    result = ""
+    
+    while num > 0:
+        result = str(num%2) + result
+        num //= 2
+    
+    return result.zfill(n)
+    
+
 def solution(n, arr1, arr2):
     answer = []
-    arr1_bin = []
-    arr2_bin = []
+    
+    temp1 = []
+    temp2 = []
     
     for i in range(n):
-        arr1_bin.append(bin(arr1[i])[2:].zfill(n))
-        arr2_bin.append(bin(arr2[i])[2:].zfill(n))
+        temp1.append(to_binary(arr1[i], n))
+        temp2.append(to_binary(arr2[i], n))
         
-        temp = ""
+    for i in range(n):
+        row = ""
         for j in range(n):
-            if arr1_bin[i][j] == "1" or arr2_bin[i][j] == "1":
-                temp += "#"
-            elif arr1_bin[i][j] == "0" and arr2_bin[i][j] == "0":
-                temp += " "
-        answer.append(temp)
-    
+            if temp1[i][j] == "1" or temp2[i][j] == "1":
+                row += "#"
+            else:
+                row += " "
+        answer.append(row)
+                
     return answer
