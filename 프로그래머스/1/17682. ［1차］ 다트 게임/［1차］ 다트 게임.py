@@ -1,26 +1,44 @@
 def solution(dartResult):
     answer = []
-    temp = ""
+    dartResult = list(dartResult)
     
-    for i in dartResult:
-        if i.isdigit():
-            temp += i
-        elif i.isalpha():
-            temp = int(temp)
-            if i == "S":
-                answer.append(temp)
-            elif i == "D":
-                answer.append(temp ** 2)
-            elif i == "T":
-                answer.append(temp ** 3)
-            temp = ""
-        elif i == "*":
-            if len(answer) > 1:
-                answer[-1] *= 2
-                answer[-2] *= 2
+    while dartResult:
+        score = ""
+        
+        temp = dartResult.pop(0)
+        
+        while True:
+            score += temp
+            
+            if not dartResult:
+                break
+            
+            if dartResult[0].isdigit():
+                temp = dartResult.pop(0)
             else:
-                answer[-1] *= 2
-        elif i == "#":
-            answer[-1] *= -1
-                
+                break
+            
+        score = int(score)
+        
+        option = dartResult.pop(0)
+        
+        if option == "S":
+            score = score ** 1
+        elif option == "D":
+            score = score ** 2
+        elif option == "T":
+            score = score ** 3
+        
+        if dartResult and dartResult[0] in ["*", "#"]:
+            bonus = dartResult.pop(0)
+            
+            if bonus == "*":
+                score *= 2
+                if answer:
+                    answer[-1] *= 2
+            else:
+                score *= -1
+        
+        answer.append(score)
+    
     return sum(answer)
