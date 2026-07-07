@@ -1,24 +1,22 @@
 def solution(mats, park):
-    answer = 0
     mats.sort(reverse=True)
     
-    R = len(park)
-    C = len(park[0])
+    N = len(park)
+    M = len(park[0])
     
-    def check(x, y, m):
-        for i in range(x, x+m):
-            for j in range(y, y+m):
-                if i < R and j < C:
-                    if park[i][j] != "-1":
-                        return False
-                else:
-                    return False
-        return True
-                         
-    for mat in mats:
-        for i in range(R):
-            for j in range(C):
-                if check(i, j, mat):
-                    return mat
-    
+    for size in mats:
+        for i in range(N - size + 1):
+            for j in range(M - size + 1):
+                flag = True
+                
+                for x in range(i, i+size):
+                    for y in range(j, j+size):
+                        if park[x][y] != "-1":
+                            flag = False
+                            break
+                    if not flag:
+                        break
+                        
+                if flag:
+                    return size
     return -1
