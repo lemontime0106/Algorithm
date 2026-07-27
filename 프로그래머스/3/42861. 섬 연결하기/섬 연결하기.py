@@ -1,32 +1,33 @@
-def find_parent(x):
-    if parent[x] != x:
-        parent[x] = find_parent(parent[x])
-    return parent[x]
+def find(parents, x):
+    if parents[x] == x:
+        return x
+    
+    return find(parents, parents[x])
 
-def union(a, b):
-    a = find_parent(a)
-    b = find_parent(b)
+def union(parents, a, b):
+    a = find(parents, a)
+    b = find(parents, b)
     
     if a < b:
-        parent[b] = a
+        parents[b] = a
     else:
-        parent[a] = b
+        parents[a] = b
 
 def solution(n, costs):
-    global parent
-    
     answer = 0
-    parent = [i for i in range(n)]
     
-    edges = []
+    parents = [i for i in range(n)]
+    
+    graph = []
+    
     for a, b, c in costs:
-        edges.append((c, a, b))
+        graph.append((c, a, b))
     
-    edges.sort()
+    graph.sort()
     
-    for c, a, b in edges:
-        if find_parent(a) != find_parent(b):
-            union(a, b)
-            answer += c
+    for cost, a, b in graph:
+        if find(parents, a) != find(parents, b):
+            union(parents, a, b)
+            answer += cost
     
     return answer
