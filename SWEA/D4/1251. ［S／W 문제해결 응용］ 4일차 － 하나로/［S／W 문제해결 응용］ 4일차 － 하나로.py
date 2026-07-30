@@ -1,35 +1,54 @@
-def prim(start):
-    global answer
+def find(parent, x):
+    if parent[x] == x:
+        return x
 
-    dist[0] = 0
+    return find(parent, parent[x])
 
-    for _ in range(N):
-        local_min = float("inf")
-        for i in range(N):
-            if not visited[i] and dist[i] < local_min:
-                min_node = i
-                local_min = dist[min_node]
-        visited[min_node] = True
-        answer += (E * local_min)
+def union(parent, a, b):
+    a = find(parent, a)
+    b = find(parent, b)
 
-        for j in range(N):
-            if not visited[j]:
-                d = (X[min_node] - X[j]) ** 2 + (Y[min_node] - Y[j]) ** 2
-                dist[j] = min(dist[j], d)
-
+    if a < b:
+        parent[b] = a
+    else:
+        parent[a] = b
 
 T = int(input())
 
 for t in range(1, T+1):
     N = int(input())
-
     X = list(map(int, input().split()))
     Y = list(map(int, input().split()))
     E = float(input())
 
-    answer = 0
-    visited = [False] * N
-    dist = [float("inf")] * N
-    prim(0)
+    MAP = []
 
-    print(f"#{t} {round(answer)}")
+    for i in range(N):
+        MAP.append([X[i], Y[i]])
+
+    graph = []
+
+    for i in range(N):
+        for j in range(i+1, N):
+            dx = MAP[i][0] - MAP[j][0]
+            dy = MAP[i][1] - MAP[j][1]
+
+            dist = dx ** 2 + dy ** 2
+
+            graph.append((dist, i, j))
+
+    graph.sort()
+
+    parent = [i for i in range(N)]
+    
+    answer = 0
+
+    for cost, a, b in graph:
+        if find(parent, a) != find(parent, b):
+            union(parent, a, b)
+
+            answer += cost
+
+    answer = round(answer * E)
+
+    print(f"#{t} {answer}")
