@@ -1,5 +1,3 @@
-# 7465. 창용 마을 무리의 개수
-
 from collections import deque
 
 for t in range(1, int(input())+1):
