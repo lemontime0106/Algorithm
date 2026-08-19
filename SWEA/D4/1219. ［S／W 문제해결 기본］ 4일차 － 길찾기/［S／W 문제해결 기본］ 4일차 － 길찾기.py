@@ -1,5 +1,3 @@
-# 1219. [S/W 문제해결 기본] 4일차 - 길찾기
-
 from collections import deque
 
 for _ in range(10):
