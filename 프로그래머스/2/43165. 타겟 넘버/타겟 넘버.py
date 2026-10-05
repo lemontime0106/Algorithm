@@ -1,19 +1,20 @@
-def dfs(numbers, target, idx, values):
-    global cnt
+def dfs(n, t, i, v):
+    global answer
     
-    if idx == len(numbers) and values == target:
-        cnt += 1
+    if i == len(n) and v == t:
+        answer += 1
         return
     
-    if idx == len(numbers):
+    if i == len(n):
         return
     
-    dfs(numbers, target, idx+1, values + numbers[idx])
-    dfs(numbers, target, idx+1, values - numbers[idx])
+    dfs(n, t, i+1, v + n[i])
+    dfs(n, t, i+1, v - n[i])
 
 def solution(numbers, target):
-    global cnt
-    cnt = 0
+    global answer 
+    answer = 0
     
     dfs(numbers, target, 0, 0)
-    return cnt
+    
+    return answer
