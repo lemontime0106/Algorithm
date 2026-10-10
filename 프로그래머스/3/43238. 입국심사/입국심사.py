@@ -1,5 +1,5 @@
 def solution(n, times):
-    lst = []
+    answer = []
     
     left, right = 1, max(times) * n
     
@@ -12,11 +12,11 @@ def solution(n, times):
             
             if cnt == n:
                 break
-        
+                
         if cnt >= n:
-            lst.append(mid)
+            answer.append(mid)
             right = mid - 1
         else:
             left = mid + 1
-        
-    return min(lst)
+    
+    return min(answer)
