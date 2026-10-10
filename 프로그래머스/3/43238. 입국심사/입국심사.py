@@ -9,9 +9,6 @@ def solution(n, times):
         
         for time in times:
             cnt += mid // time
-            
-            if cnt == n:
-                break
                 
         if cnt >= n:
             answer.append(mid)
