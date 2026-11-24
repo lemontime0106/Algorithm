@@ -1,44 +1,42 @@
 from collections import deque
 
-M, N = map(int, input().split())
+direct = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+M, N = map(int ,input().split())
 
 MAP = [list(map(int, input().split())) for _ in range(N)]
+visited = [[False] * M for _ in range(N)]
 
-visited = [[-1] * M for _ in range(N)]
-tomato = []
-
-direct = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+q = deque()
 
 for i in range(N):
     for j in range(M):
         if MAP[i][j] == 1:
-            tomato.append((i, j))
-            visited[i][j] = 0
-        elif MAP[i][j] == -1:
-            visited[i][j] = -1
+            q.append((i, j))
 
-q = deque(tomato)
+
+def bfs(x, y):
+    for dx, dy in direct:
+        nx, ny = x + dx, y + dy
+
+        if 0 <= nx < N and 0 <= ny < M:
+            if MAP[nx][ny] == 0 and not visited[nx][ny]:
+                q.append((nx, ny))
+                MAP[nx][ny] = MAP[x][y] + 1
+                visited[nx][ny] = True
 
 while q:
     x, y = q.popleft()
-    for d in direct:
-        nx, ny = x + d[0], y + d[1]
-        if 0 <= nx < N and 0 <= ny < M and visited[nx][ny] == -1 and not MAP[nx][ny]:
-            q.append((nx, ny))
-            visited[nx][ny] = visited[x][y] + 1
+    bfs(x, y)
 
-flag = True
 answer = 0
+
 for i in range(N):
     for j in range(M):
-        if MAP[i][j] == 0 and visited[i][j] == -1:
-            flag = False
-        if visited[i][j] > answer:
-            answer = visited[i][j]
+        if MAP[i][j] == 0:
+            print(-1)
+            exit()
 
-if flag:
-    print(answer)
-else:
-    print(-1)
+        answer = max(answer, MAP[i][j])
 
-
+print(answer - 1)
