@@ -1,22 +1,28 @@
 N, M = map(int, input().split())
-lst = list(int(input()) for _ in range(N))
-left, right = min(lst), sum(lst)
+
+lst = [int(input()) for _ in range(N)]
+
+left, right = max(lst), sum(lst)
+
+answer = 0
 
 while left <= right:
     mid = (left + right) // 2
-    cur = mid
+
+    temp = mid
     cnt = 1
 
-    for i in range(N):
-        if cur < lst[i]:
-            cur = mid
+    for money in lst:
+        if temp < money:
             cnt += 1
-        cur -= lst[i]
+            temp = mid
 
-    if cnt > M or mid < max(lst):
-        left = mid + 1
-    else:
+        temp -= money
+
+    if cnt <= M:
+        answer = mid
         right = mid - 1
-        k = mid
+    else:
+        left = mid + 1
 
-print(k)
+print(answer)
